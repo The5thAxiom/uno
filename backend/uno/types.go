@@ -42,9 +42,9 @@ type Card struct {
 	ImageUrl        string
 	Type            CardType
 	Color           CardColor
-	Number          int
-	SpecialCardType SpecialCardType
-	WildCardType    WildCardType
+	Number          *int
+	SpecialCardType *SpecialCardType
+	WildCardType    *WildCardType
 }
 
 type User struct {
@@ -66,15 +66,17 @@ const (
 	AntiClockwiseDirection GameDirection = "AntiClockwise Direction"
 )
 
+type GamePlayer struct {
+	User User
+	Hand []Card
+}
+
 type GameState struct {
 	GameType GameType
 	DrawPile utils.Stack[Card]
 	ActivePile utils.Stack[Card]
-	Players []struct {
-		User User
-		Hand []Card
-	}
-	CurrentUserIndex int
+	Players []GamePlayer
+	CurrentPlayerIndex int
 	CardColorToPlay CardColor
 	Direction GameDirection
 }
